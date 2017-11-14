@@ -2,6 +2,12 @@ applications:
 - name: stock-by-aivar
   path: target/12f_app-1.0-SNAPSHOT.jar
   memory: 1G
+  edge: true
+    provider: cloudfoundry
+    username: aivar.magi@partner.smit.ee
+    api: https://api.run.pivotal.io
+    organization: aivar
+    space: staging
   services:
   - my-db
   - my-redis
