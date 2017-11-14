@@ -2,6 +2,8 @@ package com.github.aivarmagi.app;
 
 import com.github.aivarmagi.app.domain.model.StockItem;
 import com.github.aivarmagi.app.repository.StockItemRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping(value = "/stock", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StockResource {
+
+    private static final Logger logger = LoggerFactory.getLogger(StockResource.class);
 
     private Environment environment;
     private StockItemRepository stockItemRepository;
@@ -85,5 +89,22 @@ public class StockResource {
     public Iterable<StockItem> items() {
         return stockItemRepository.findAll();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public StockItem getById(@PathVariable("id") Long id, HttpServletResponse response) {
+        logger.info("Starting search of stock item(id={}) search", id);
+
+        StockItem stockItem = stockItemRepository.findOne(id);
+
+        if (stockItem == null) {
+            logger.info("Stock item(id={}) has not been found", id);
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return null;
+        }
+
+        logger.info("Finishing search of stock item(id={}) search", id);
+        return stockItem;
+    }
+
 }
 
