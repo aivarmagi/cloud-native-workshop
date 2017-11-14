@@ -1,5 +1,7 @@
 language: java
 before_script: cd 12f_app
+before_install:
+  - echo $secret_password | gpg --passphrase-fd 0 super_secret.txt.gpg
 script: mvn clean install
 deploy:
   edge: true
@@ -11,5 +13,3 @@ deploy:
 env:
   global:
     secure: Db3DCv8dBe1Iq0wpghdCtp/0AzK2ROUjA1b2BPzyt0ACIMJIXaCOjazRUA6dCq3VUibzimLCPr5S+MCizNGy70F0Xy/OyZt7SVJTxL4MYt1c/rC5pt3si5G/9Lwke7eYGmFIYQnlmSUIlB1xc9+mRlLSWlskx+sb8MDbD4wK7+b9hz3Nw1DdOppjECs0HTfRJFZxjAGOMB6j5R9EHkcJeRbd6QxXh+jJhD19tJjdK9bjqaOkgKmFof4uphLaase/uQSBYGZKDcanVwqkqRFkNiyQ5i9u8F3Fji/usxEjhlIjNckP/FFhJgbRx0KO7dLPYy+jhHgIeZ++ry1li2QKcFOVUJZWuqdZxlOrjEBaCkHNiM8kXTpTkaF+E9VKOUQJrdlbJWHu+ep9Ap3g4SFEbMKAN5OnvvyOfDSD+TCj2kisMiFpRZ8pWNIEW6jhRdugh8JM8rXjnot52lhxuZpBmHxucN9lbUORWvG0Y8LYguuFSFXkZYF3YHahkssO+6uuwWvdrsFzVTm3P+VNAPTEwrS9epKSKxGwf/RjcM4iywOO2kO6Xr88ZQ2/8DeG8JZECAP80zXJSVissS+3m4IzGcF8/+f/tMI0ShCBNblnbvcvfbZiv6CYOtnENRDOelMH/TVyOFo2byeCTx7dOiHIqzCigP7tE5bBV3UJkvNevN4=
-before_install:
-  - echo $secret_password | gpg --passphrase-fd 0 super_secret.txt.gpg
